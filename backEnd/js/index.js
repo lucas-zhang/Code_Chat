@@ -1,4 +1,4 @@
-//set up crap
+//set up cra
 //var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
