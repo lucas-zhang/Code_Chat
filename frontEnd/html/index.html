@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app = "chatApp">
+<head>
+    <title>CodeChat Main</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = "stylesheet" type = "text/css" href = "../../bootstrap/css/bootstrap.min.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "../assets/css/main_page.css"/>
+
+    <script src = "../js_modules/jquery-1.9.1.js"/></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src = "../assets/js/app.js"></script>
+    <script src = "../../bootstrap/js/bootstrap.min.js"/></script>
+
+</head>
+
+<head>
+    <head-template></head-template>
+</head>
+
+    <body> 
+        <navbar></navbar>
+
+        <login-box></login-box>
+
+        <app-description></app-description>
+
+        <div class = "container" style = "padding-bottom: 50px">
+            <main-features></main-features>
+            <other-features></other-features>
+        </div>
+
+        <bottom-footer></bottom-footer>
+
+
+        <!--
+        <nav class ="navbar navbar-default">
+            <div class = "container-fluid">
+                <div class = "navbar-header">
+                    <button type = "button" class = "navbar-toggle" data-toggle = "collapse" data-target = "#myNavbar">
+                        <span class = "icon-bar"></span>
+                        <span class = "icon-bar"></span>
+                        <span class = "icon-bar"></span>
+                    </button>
+                    <a class = "navbar-brand" href = "#">CodeChat</a>
+                </div>
+
+                <div class = "collapse navbar-collapse" id = "myNavbar">
+
+                    <ul class = "nav navbar-nav">
+                        <li class = "active"><a href = "#">Home</a></li>
+                        <li><a href = "/about">About</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br><br><br>
+
+
+        <div class = "container">
+            <div class = "row text-center">
+                <img src = "assets/img/chat-icon.png" height = "80px">
+                <div class = "top-buffer front-page-header">CodeChat</div>
+                <div class = "top-buffer" style = "font-size:16px">Sign in to CodeChat to get started.</div>
+            </div>
+			
+			<form action="login" method="POST">
+				<div class = "row text-center">
+					<div class = "col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 form-group top-buffer-25">
+						<input type = "text" name="username" class = "form-control input-md-lg" id = "username" placeholder = "Username">
+					</div>
+					<div class = "col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 form-group">
+						<input type = "password" name="password" class = "form-control input-md-lg" id = "password" placeholder = "Password">
+					</div>
+				</div>
+				<div class = "row text-center">
+					<input type="submit" class="btn signin-button" value="Sign In">
+				</div>
+			</form>
+            <div class = "row text-center">
+                <p style = "font-size: 13px" class = "top-buffer">Don't have an account? Signup <a href = "/signup">here</a>.</p>
+            </div>
+            <div class = "row"></div>
+        </div>
+
+        <div class = "background top-buffer-125">
+            <div class = "container">
+                <div class = "row text-left ">
+                    <div class = "col-md-5 top-buffer-75">
+                        <div class = "top-buffer front-page-header" style = "color: white;font-size:36px">
+                            A simple chat application with a new and innovative way to interact 
+                        </div>
+                        <div class = "top-buffer description">CodeChat provides you with the ability to chat normally, while inputting special interactive commands. Look to have fun and be productive with event lists, decision makers, and group chats.
+                        </div>
+                    </div>
+                    <div class = "col-md-5 col-md-offset-2 top-buffer-75">
+                        <div class = "top-buffer front-page-header" style = "color: white;font-size:36px">
+                            Bringing you a convenient way to share code and collaborate
+                        </div>
+                        <div class = "top-buffer description">With CodeChat you have the flexibility of sending and receiving formatted code directly in chat, without sending files. It's quick and simple to share code without the hassle of looking through plain text. 
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class = "container" style = "padding-bottom: 50px">
+            <div class = "row text-center top-buffer-75">
+                <div class = "front-page-header">Primary Features</div>
+                <div class = "col-md-offset-0 col-md-4 top-buffer-75">
+                    <img src = "assets/img/code.png" class = "large-icon">
+                    <div class = "large-icon-description">Code</div>
+                </div>
+                <div class = "col-md-4 top-buffer-75">
+                    <img src = "assets/img/chat-icon2.png" class = "large-icon">
+                    <div class = "large-icon-description"> Chat</div>
+                </div>
+                <div class = "col-md-4 top-buffer-75">
+                    <img src = "assets/img/command.png" style = "position:relative; top: -10px" height = "180 px">
+                    <div class = "large-icon-description" style = "position:relative; top: -55px "> Interact</div>
+                </div>
+
+            </div>
+            <div class = "row text-center">
+                <div class = "front-page-header top-buffer-50" style = "font-size:24px">Other Features</div>
+                <div class = "col-md-offset-2 col-md-3 top-buffer-25">
+                    <img src = "assets/img/color2.png" class = "small-icon">
+                    <div class = "small-icon-description">Color Schemes</div>
+                </div>
+                <div class = "col-md-2 top-buffer-25">
+                    <img src = "assets/img/group.png" class = "small-icon">
+                    <div class = "small-icon-description"> Group Chat</div>
+                </div>
+                <div class = "col-md-3 top-buffer-25">
+                    <img src = "assets/img/profile.png" class = "small-icon">
+                    <div class = "small-icon-description">Profiles & Bios</div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class = "footer">
+            <div class = "container" style= "margin-top:30px">
+                <p style = "font-weight: 110; letter-spacing: 0px; font-size:14px"> &copy 2015 Eric Zhou, Lucas Zhang<p>
+            </div>
+        </footer>
+    -->
+
+
+
+
+
+
+    
+    </body>
+</html>

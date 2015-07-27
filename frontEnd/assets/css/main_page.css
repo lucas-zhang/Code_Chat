@@ -1,0 +1,113 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 60px;
+}
+.top-buffer {
+    margin-top: 15px;
+}
+
+.top-buffer-20 {
+    margin-top: 20px;
+}
+
+.top-buffer-25 {
+    margin-top: 25px;
+}
+
+.top-buffer-50 {
+    margin-top: 50px;
+}
+.top-buffer-75 {
+    margin-top: 75px;
+}
+.top-buffer-100 {
+    margin-top: 100px;
+}
+.top-buffer-125 {
+    margin-top: 125px;
+}
+
+.signin-button {
+    background-color: #0084ff;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: 120;
+    padding: 10px 100px 10px 100px;
+    font-size: 16px;
+}
+.signin-button:hover {
+    background-color: #4DA9FF;
+    color: white;
+}
+.signin-button:focus {
+    outline: none;
+}
+.form-control::-webkit-input-placeholder { font-weight: 100; letter-spacing: 2px; }
+.form-control:-moz-placeholder { font-weight: 100;}
+.form-control::-moz-placeholder { font-weight: 100; }
+.form-control:-ms-input-placeholder { font-weight: 100;}
+
+button:hover {
+    transition: all 0.5s;
+
+}
+button {
+    transition: all 0.5s;
+}
+
+.input-md-lg {
+    height: 42px;
+}
+.footer {
+    background-color: #e7e7e7;
+    color: #777;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+}
+.background {
+    display: block;
+    width: 100%;
+    padding-bottom: 100px;
+    background-color: #2998ff;
+}
+
+.description {
+    color: white;
+    letter-spacing: 2px;
+    font-weight: 100;
+    font-size: 15px;
+}
+
+.large-icon-description {
+    margin-top: 20px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: 200;
+}
+
+.large-icon {
+    height: 125px;
+}
+.small-icon {
+    height: 75px;
+}
+.small-icon-description {
+    margin-top: 10px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 200;
+}
+
+.front-page-header {
+    font-size: 40px; 
+    font-weight: 100;
+    letter-spacing: 2px;
+
+}
