@@ -64,7 +64,7 @@
         };
     });
 
-    app.directive('headTemplate', fucntion(){
+    app.directive('headTemplate', function(){
         return {
             restrict: 'E',
             templateUrl: 'head_template.html'
