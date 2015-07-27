@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('chatApp', []);
+    var app = angular.module('chatApp', ['html-directives']);
     app.constant('indexImages', (function() {
         var base_path = '../assets/img/';
         var end = '.png';
@@ -24,50 +24,5 @@
     }));
 
 
-    app.directive('navbar', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'navbar.html'
-        };
-    });
 
-    app.directive('loginBox', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'login_box.html'
-        };
-    });
-
-    app.directive('bottomFooter', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'footer.html'
-        };
-    });
-    app.directive('appDescription', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'app_description.html'
-        };
-    });
-    app.directive('mainFeatures', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'main_Features.html'
-        };
-    });
-
-    app.directive('otherFeatures', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'main_Features.html'
-        };
-    });
-
-    app.directive('headTemplate', function(){
-        return {
-            restrict: 'E',
-            templateUrl: 'head_template.html'
-        };
-    });
 })();

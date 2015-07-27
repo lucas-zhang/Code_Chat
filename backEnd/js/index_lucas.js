@@ -4,6 +4,7 @@ var path = require("path");
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
+var port = process.env.PORT || 8080;
 
 var rootPath = __dirname + '../../..'
 app.use("/bootstrap", express.static(rootPath + '/bootstrap'));
@@ -23,10 +24,15 @@ var pool = mysql.createPool({
 
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(rootPath + '/frontEnd/html/index.html'));
+  res.render(path.join(rootPath + '/frontEnd/html/index.html'));
 });
 
-var server = app.listen(3000, function () {
+app.post('/login', function (req, res) {
+    res.send('hello');
+    console.log('login hit');
+});
+
+var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
