@@ -9,11 +9,18 @@
   "author": "Eric Zhou & Lucas Zhang",
   "license": "ISC",
   "dependencies": {
-    "express":  "4.13.1",
+    //database shit.
     "mysql": "2.8.0",
+    "knex":     "0.8.6",
+    "pool2":    "1.1.6"
+    "bookshelf":"0.8.1",
+    
+    //other
+    "express":  "4.13.1",
     "socket.io":"1.3.6",
     "passport": "0.2.2",
-    "bookshelf":"0.8.1",
-    "knex":     "0.8.6"
+    
+    
+    
   }
 }
