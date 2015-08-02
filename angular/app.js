@@ -1,7 +1,8 @@
 (function(){
-    var app = angular.module('chatApp', ['html-directives']);
-    app.constant('indexImages', (function() {
-        var base_path = '../assets/img/';
+    var app = angular.module('chatApp', ['html-directives', 'user_controller']);
+    app.constant('img_path', (function() {
+        /*
+        var base_path = 'img/';
         var end = '.png';
         var image_names = {
             chat1: 'chat-icon', 
@@ -9,7 +10,7 @@
             code: 'code', 
             color: 'color', 
             color2: 'color2', 
-            command: 'command',
+            command:'command',
             group: 'group', 
             profile: 'profile'
         };
@@ -21,6 +22,8 @@
         }
 
         return image_names;
+        */
+        return 'img/';
     }));
 
 
