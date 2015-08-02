@@ -6,5 +6,5 @@
 
 #Front end dependencies
 /public/bootstrap
-/public/js
-/angular/modules
+js
+modules
