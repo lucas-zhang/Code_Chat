@@ -1,0 +1,45 @@
+<div class = "container">
+    <div class = "row text-center">
+        <img src = "img/chat-icon.png" height = "80px">
+        <div class = "top-buffer front-page-header">Create an Account</div>
+		<div class = "top-buffer" style = "font-size:16px">You're one step away from talking in your favorite coding language!</div>
+    </div>
+    <form action="/login" method="POST" class="form-horizontal">
+        <div class="form-group top-buffer-25 row">
+			<div class = "col-lg-3 col-lg-offset-3 col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2 col-xs-5 col-xs-offset-1">
+				<input type = "text" name="firstName" class = "form-control input-md-lg" id = "firstName" placeholder = "First Name" />
+			</div>
+			<div class = "col-lg-3 col-md-3 col-sm-4 col-xs-5">
+				<input type = "text" name="lastName" class = "form-control input-md-lg" id = "lastName" placeholder = "Last Name" />
+			</div>
+		</div>
+		<div class="form-group row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                <input type = "text" name="email" class = "form-control input-md-lg" id = "email" placeholder = "Email" />
+            </div>
+        </div>
+		<div class="form-group row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                <input type = "text" name="username" class = "form-control input-md-lg" id = "username" placeholder = "Username" />
+            </div>
+        </div>
+		<div class = "form-group row">
+			<div class = "col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+				<input type = "password" name="password" class = "form-control input-md-lg" id = "password" placeholder = "Password" />
+			</div>		
+        </div>
+		<div class="form-group row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                <input type = "password" name="password" class = "form-control input-md-lg" id = "password" placeholder = "Retype Password" />
+            </div>
+        </div>
+        <div class = "row text-center top-buffer-25">
+            <input type="submit" class="btn signin-button" value="Create Account">
+        </div>
+    </form>
+    
+    <div class = "row text-center">
+        <p style = "font-size: 13px" class = "top-buffer">Already have an account? <a href = "/">Sign in</a>.</p>
+    </div>
+    <div class = "row"></div>
+</div>
