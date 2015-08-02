@@ -2,9 +2,10 @@
 
 
 #Node Dependencies
-/node_modules
+node_modules
 
 #Front end dependencies
-/public/bootstrap
-js
-modules
+public/bootstrap
+
+public/js
+angular/modules
