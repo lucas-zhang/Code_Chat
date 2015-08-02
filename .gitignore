@@ -5,7 +5,6 @@
 node_modules
 
 #Front end dependencies
-bootstrap
-js_modules
-
-
+public/bootstrap
+public/js
+angular/modules
