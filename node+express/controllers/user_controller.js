@@ -5,7 +5,7 @@ var UserModel = require('../models/user_model');
 
 var UserController = (function() {
   var loginPostPrivate = function(req, res, next) {
-      passport
+      
 
   };
   var signupPostPrivate = function() {
