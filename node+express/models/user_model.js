@@ -13,6 +13,4 @@ var UserModel = bookshelf.Model.extend({
 
 });
 
-module.exports = {
-    UserModel: UserModel
-};
+module.exports = UserModel;

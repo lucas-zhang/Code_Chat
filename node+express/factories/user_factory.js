@@ -1,0 +1,1 @@
+var UserModel = require('../models/user_model.js');
