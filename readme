@@ -1,6 +1,10 @@
+Commit from eric_branch 8/2
+
 When you pull this repo for the first time you have to create folders:
 
 1) angular/modules and download and place angular-route.js and angular.min.js
 
 2) public/js and download and place jquery-1.9.1.js and ejs_production.js
+
+This is a test because
 
