@@ -1,5 +1,5 @@
-var UserModel = require('../models/user_model.js');
+var Model = require('../models/models.js');
 
 var UserFactory = {
-  this.user = UserModel;
+  this.user = Model.User;
 };

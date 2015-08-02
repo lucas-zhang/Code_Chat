@@ -61,4 +61,11 @@
             templateUrl: rootPath + '/head_template' + ext
         };
     });
+
+    app.directive('signupBox', function(){
+        return {
+            restrict: 'E',
+            templateUrl: rootPath + '/sign_up_box' + ext
+        };
+    });
 })();

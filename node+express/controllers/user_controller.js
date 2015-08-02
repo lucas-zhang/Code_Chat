@@ -1,6 +1,7 @@
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
-var UserModel = require('../models/user_model');
+var Model= require('../models/models');
+
 
 
 var UserController = (function() {

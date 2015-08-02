@@ -9,17 +9,16 @@ module.exports = function(app, passport) {
 	  res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
 
+	app.get('/signup', function (req, res) {
+		res.render(path.join(rootPath, '/public/views/signup/signup.ejs'), {});
+	});
+
 	app.post('/login', function (req, res) {
 	  res.send('hello');
 	  console.log('login hit');
 	});
 
-	function isLoggedIn(req, res, next) {
-		if (req.isAuthenticated()){
-			return next();
-		}
-		res.redirect('/');
-	}
+
 };
 
 
