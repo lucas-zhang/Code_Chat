@@ -10,7 +10,11 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/signup', function (req, res) {
-		res.render(path.join(rootPath, '/public/views/signup/signup.ejs'), {});
+		UserController.renderView(req,res,'/signup/signup.ejs',{});
+	});
+
+	app.post('/signup', function (req, res) {
+		UserController.signupPost(req, res);
 	});
 
 	app.post('/login', function (req, res) {
