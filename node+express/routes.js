@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/signup', function (req, res) {
-		UserController.signupPost(req, res);
+		UserController.signupPostPassport(req, res);
 	});
 
 	app.post('/login', function (req, res) {

@@ -19,6 +19,14 @@ var UserController = (function() {
     this.renderView(req, res, '/signup/signup.ejs', {err: err, user: user});
 
   };
+
+  var signupPostPassportPrivate = function(req, res) {
+    var signupCallback = function (req, res) {
+      var ejsDict = {user: req.body};
+      this.renderView(req, res, '/signup/signup.ejs', ejsDict);
+    };
+    UserFactory.signupPostPassport(signupCallback);
+  }; 
   var loginPostPrivate = function() {
 
   };
@@ -33,6 +41,9 @@ var UserController = (function() {
       },
       signupPost: function(req, res) {
         signupPostPrivate(req, res);
+      },
+      signupPostPrivate: function(req,res) {
+        signupPostPassportPrivate(req, res);
       },
       signupGet: function(req, res) {
         signupGetPrivate(req,res);

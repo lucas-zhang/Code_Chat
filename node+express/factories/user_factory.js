@@ -11,12 +11,16 @@ var UserFactory = {
       }
     }
     return true;
-  }
+  };
   this.validEmail = function(email) {
     var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return regex.test(email);
-  }
-  this.signupPost = function(req, res) {
+  };
+  this.signupPostPassport = function(signupCallBack) {
+    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}), signupCallBack);
+
+  };
+  /*this.signupPost = function(req, res) {
     var user = req.body;
     var usernamePromise = null;
     var returnObject = {'err': null, 'user': null};
@@ -58,7 +62,7 @@ var UserFactory = {
     };
 
     return returnObject;
-  };
+  }; */
 };
 
 module.exports = UserFactory;
