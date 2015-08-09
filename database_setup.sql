@@ -13,3 +13,13 @@ create table if not exists users(
    firstName varchar(100),
    lastName varchar(100)
 )engine=innodb;
+
+drop table if exists friends;
+
+CREATE TABLE `chat_app`.`friends` if not exists friends(
+  `user_id` INT UNSIGNED NOT NULL,
+  `friend_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`user_id`, `friend_id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
