@@ -23,3 +23,4 @@ CREATE TABLE `chat_app`.`friends` if not exists friends(
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
