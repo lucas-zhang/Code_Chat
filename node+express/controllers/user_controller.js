@@ -8,38 +8,54 @@ var path = require('path');
 
 
 var UserController = (function() {
-  var loginPostPrivate = function(req, res, next) {
-      
-
+  
+  var signupGetPrivate = function(req,res) {
+    if (req.isAuthenticated()) {
+      return renderViewPrivate(req, res, '/home/index.ejs', {err: null, user: req.passport.user});
+    } 
+    return renderViewPrivate(req, res, '/signup/signup.ejs', {err: null, user: null});
   };
   var signupPostPrivate = function(req, res) {
     var factObj = UserFactory.signupPost(req,res);
     var user = factObj.user;
     var err = factObj.err;
-    this.renderView(req, res, '/signup/signup.ejs', {err: err, user: user});
+    return renderViewPrivate(req, res, '/signup/signup.ejs', {err: err, user: user});
 
   };
 
   var signupPostPassportPrivate = function(req, res) {
-    var factObject = UserFactory.signupPostPassport(signupCallback);
-    if (!factObject.user) {
-      return this.renderView(req, res, '/signup/signup.ejs', {signupError: factObject.err.signupMessage});
+    // factObject.keys()  = [err, user]
+    var factObject = UserFactory.signupPostPassport();
+    var err = factObject.err;
+    var user = factObject.user;
+    if (err || !user) {
+      return renderViewPrivate(req, res, '/signup/signup.ejs', {user: null, signupError: err.signupMessage});
     }
-    return this.renderView(req, res, '/profile/profile.ejs', {user: user});
+    return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, signupError: null});
     
 
   }; 
-  var loginPostPrivate = function() {
+  var loginPostPassportPrivate = function(req, res) { 
+    var factObject = UserFactory.loginPostPassport();
+    var err = factObject.err;
+    var user = factObject.user;
+    if (err || !user) {
+      return renderViewPrivate(req, res, '/home/index.ejs', {user: null, loginError: err.loginMessage});
+    }
+    return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, loginError: null});
+    
+
 
   };
 
   var renderViewPrivate = function(req, res, templatePath, ejsDict) {
     var viewsAbsPath = path.join(__dirname, '../../public/views');
-    res.render(path.join(viewsAbsPath, templatePath), ejsDict);
+    return res.render(path.join(viewsAbsPath, templatePath), ejsDict);
   };
   return {
-      loginPost: function(req, res) {
-        loginPostPrivate(req, res);
+
+      loginPostPassport: function(req, res) {
+        loginPostPassportPrivate(req , res);
       },
       signupPost: function(req, res) {
         signupPostPrivate(req, res);

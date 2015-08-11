@@ -6,20 +6,24 @@ module.exports = function(app, passport) {
 	var rootPath = path.join(__dirname + '../..');
 
 	app.get('/', function (req, res) {
-	  res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
+		if (req.isAuthenticated()) {
+
+			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.passport.user, err: null});
+		}
+		console.log("GET to /, not authenticated");
+	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null, err: null});
 	});
 
 	app.get('/signup', function (req, res) {
-		UserController.renderView(req,res,'/signup/signup.ejs',{});
+		UserController.signupGet(req, res);
 	});
 
 	app.post('/signup', function (req, res) {
 		UserController.signupPostPassport(req, res);
 	});
 
-	app.post('/login', function (req, res) {
-	  res.send('hello');
-	  console.log('login hit');
+	app.post('/login', function (req, res) {	
+		UserController.loginPostPassport(req, res);
 	});
 
 

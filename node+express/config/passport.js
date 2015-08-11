@@ -53,11 +53,12 @@ module.exports = function(passport) {
                 });
             }
         });
-    });
+    }));
 
     passport.use('local-login', new LocalStrategy({
     },
     function (req, username, password, done) {
+        console.log('passport login in passport.js called');
         new Model.User({username:username}).fetch().then(function (err, user) {
             if(err) {
                 return done(err);

@@ -1,8 +1,9 @@
 var Model = require('../models/models.js');
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
+var passport = require('passport');
 
 var UserFactory = {
-  this.fieldsFull = function(user) {
+  fieldsFull: function(user) {
     for (var field in user) {
       if(req.hasOwnProperty(field)) {
         if(field.length == 0) {
@@ -11,17 +12,35 @@ var UserFactory = {
       }
     }
     return true;
-  };
-  this.validEmail = function(email) {
+  },
+  validEmail: function(email) {
     var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return regex.test(email);
-  };
-  this.signupPostPassport = function() {
-    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}), function (err, user, info) {
-      return {err: err, user: user};
-    });
+  },
+  signupPostPassport: function() {
+    var factObj;
+    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}, function (err, user, info) {
+      console.log("Factory signup done");
+      factObj = {err: err, user: user};
+    })
+    return factObj;
 
-  };
+  },
+
+  loginPostPassport: function() {
+    var factObj;
+    passport.authenticate('local-login', {failureRedirect: '/', failureFlash: true}, function (err,user,info) {
+      console.log("Factory login done");
+
+      factObj = {err: err, user: user};
+    })
+    console.log("factObj:" + factObj);
+    return factObj;
+  }
+  
+};
+module.exports = UserFactory;
+
   /*this.signupPost = function(req, res) {
     var user = req.body;
     var usernamePromise = null;
@@ -65,6 +84,4 @@ var UserFactory = {
 
     return returnObject;
   }; */
-};
 
-module.exports = UserFactory;
