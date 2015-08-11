@@ -21,11 +21,13 @@ var UserController = (function() {
   };
 
   var signupPostPassportPrivate = function(req, res) {
-    var signupCallback = function (req, res) {
-      var ejsDict = {user: req.body};
-      this.renderView(req, res, '/signup/signup.ejs', ejsDict);
-    };
-    UserFactory.signupPostPassport(signupCallback);
+    var factObject = UserFactory.signupPostPassport(signupCallback);
+    if (!factObject.user) {
+      return this.renderView(req, res, '/signup/signup.ejs', {signupError: factObject.err.signupMessage});
+    }
+    return this.renderView(req, res, '/profile/profile.ejs', {user: user});
+    
+
   }; 
   var loginPostPrivate = function() {
 
@@ -42,7 +44,7 @@ var UserController = (function() {
       signupPost: function(req, res) {
         signupPostPrivate(req, res);
       },
-      signupPostPrivate: function(req,res) {
+      signupPostPassport: function(req,res) {
         signupPostPassportPrivate(req, res);
       },
       signupGet: function(req, res) {

@@ -27,9 +27,8 @@ module.exports = function(passport) {
 
     //signup strategy
     passport.use('local-signup', new LocalStrategy({
-        passReqToCallback: true
     },
-    function (req, username, password, firstName, lastName, email) {
+    function (req, username, password, done) {
         new Model.User({username: username}).fetch().then(function (err, user) { //not sure if err is a thing
             if (err) {
                 return done(err);
@@ -39,17 +38,17 @@ module.exports = function(passport) {
             } else {
                 var hash = bcrypt.hashSync(password);
                 var signUpUser = new Model.User({
-                    username: username, 
+                    username: user.username, 
                     password: hash, 
-                    firstName: firstName, 
-                    lastName: lastName, 
-                    email:email
+                    firstName: user.firstName, 
+                    lastName: user.lastName, 
+                    email: user.email
                 });
                 signUpUser.save().then(function (err) {
                     if (err){
                         throw err;
                     }
-                    return done(null, newUser);
+                    return done(null, signUpUser);
 
                 });
             }
@@ -57,7 +56,6 @@ module.exports = function(passport) {
     });
 
     passport.use('local-login', new LocalStrategy({
-        passReqToCallback: true
     },
     function (req, username, password, done) {
         new Model.User({username:username}).fetch().then(function (err, user) {

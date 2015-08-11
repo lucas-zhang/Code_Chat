@@ -16,8 +16,10 @@ var UserFactory = {
     var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return regex.test(email);
   };
-  this.signupPostPassport = function(signupCallBack) {
-    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}), signupCallBack);
+  this.signupPostPassport = function() {
+    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}), function (err, user, info) {
+      return {err: err, user: user};
+    });
 
   };
   /*this.signupPost = function(req, res) {
