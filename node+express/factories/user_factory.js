@@ -23,6 +23,7 @@ var UserFactory = {
       console.log("Factory signup done");
       factObj = {err: err, user: user};
     })
+    console.log("factObj:" + factObj);
     return factObj;
 
   },

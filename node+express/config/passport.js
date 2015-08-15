@@ -1,7 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
-var Model = require('../models/models');
+var Model = require('../models/models.js');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -13,12 +13,12 @@ module.exports = function(passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser(function (user, done) {
         done(null, user.userID);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(userID, done) {
+    passport.deserializeUser(function (userID, done) {
         new Model.User({userID: userID}).fetch().then(function(err, user) {
             done(err, user);
         });
@@ -29,10 +29,9 @@ module.exports = function(passport) {
     passport.use('local-signup', new LocalStrategy({
     },
     function (req, username, password, done) {
-        new Model.User({username: username}).fetch().then(function (err, user) { //not sure if err is a thing
-            if (err) {
-                return done(err);
-            } 
+        console.log("local-signup called");
+        new Model.User({username: username}).fetch().then(function (user) { //not sure if err is a thing
+
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
             } else {
@@ -44,10 +43,7 @@ module.exports = function(passport) {
                     lastName: user.lastName, 
                     email: user.email
                 });
-                signUpUser.save().then(function (err) {
-                    if (err){
-                        throw err;
-                    }
+                signUpUser.save().then(function () {
                     return done(null, signUpUser);
 
                 });

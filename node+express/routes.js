@@ -1,5 +1,6 @@
 
 var UserController = require('./controllers/user_controller');
+var Model = require('./models/models.js');
 
 module.exports = function(app, passport) {
 	var path = require('path');
@@ -19,8 +20,34 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/signup', function (req, res) {
-		UserController.signupPostPassport(req, res);
+		console.log('signup post hit');
+		var factObj;
+		passport.authenticate('local-signup', {failureFlash: true}, function (err, user, info) {
+      console.log("Factory signup done");
+      factObj = {err: err, user: user};
+    })
+    console.log(factObj);
+    return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
+
+	app.get('/dbtest', function (req, res) {
+		console.log(Model.User);
+	 	var signUpUser = new Model.User({
+	      username: 'jagger15',
+	      password: 'asdf', 
+	      firstName: 'john', 
+	      lastName: 'smith', 
+	      email: 'john_smith@gmail.com'
+	  });
+	  console.log('hi');
+	  signUpUser.save().then(function (user) {
+	  	console.log("user saved with dbtest");
+	  });
+		return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
+	});
+
+
+
 
 	app.post('/login', function (req, res) {	
 		UserController.loginPostPassport(req, res);
