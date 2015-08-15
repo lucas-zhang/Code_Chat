@@ -2,9 +2,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
 var Model = require('../models/models.js');
-
+var bcrypt   = require('bcrypt-nodejs');
 // expose this function to our app using module.exports
 module.exports = function(passport) {
+    console.log('passport.js initially called');
 
     // =========================================================================
     // passport session setup ==================================================
@@ -28,7 +29,7 @@ module.exports = function(passport) {
     //signup strategy
     passport.use('local-signup', new LocalStrategy({
     },
-    function (req, username, password, done) {
+    function (username, password, done) {
         console.log("local-signup called");
         new Model.User({username: username}).fetch().then(function (user) { //not sure if err is a thing
 
@@ -53,17 +54,16 @@ module.exports = function(passport) {
 
     passport.use('local-login', new LocalStrategy({
     },
-    function (req, username, password, done) {
-        console.log('passport login in passport.js called');
-        new Model.User({username:username}).fetch().then(function (err, user) {
-            if(err) {
-                return done(err);
-            } 
+    function (username, password, done) {
+        console.log('local-login');
+        new Model.User({username:username}).fetch().then(function (data) {
+            console.log(data);
+            var user = data;
             if (!user) {
-                return done(null, false, req.flash('signupMessage', 'No user found.'));
+                return done(null, false, {message: 'Invalid username or password.'});
             }
-            if (!user.validPassword(password)) {
-                return done(null, false, req.flash('loginMessage', 'Wrong password.'));
+            if (!bcrypt.compareSync(password, user.get('password'))) {
+                return done(null, false, {message: 'Invalid username or password.'});
             }
             return done(null,user);
         });

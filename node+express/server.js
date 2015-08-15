@@ -13,8 +13,7 @@ var path = require('path');
 var rootPath = path.join(__dirname + '../..');
 
 //Database
-var knex = require('./config/db.js').knex;
-var bookshelf = require('bookshelf')(knex);
+
 
 
 //Parser

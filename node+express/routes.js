@@ -20,28 +20,30 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/signup', function (req, res) {
+		console.log(passport);
 		console.log('signup post hit');
 		var factObj;
 		passport.authenticate('local-signup', {failureFlash: true}, function (err, user, info) {
       console.log("Factory signup done");
       factObj = {err: err, user: user};
     })
-    console.log(factObj);
+
     return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
 
 	app.get('/dbtest', function (req, res) {
-		console.log(Model.User);
 	 	var signUpUser = new Model.User({
-	      username: 'jagger15',
+	      username: 'jagger156',
 	      password: 'asdf', 
 	      firstName: 'john', 
 	      lastName: 'smith', 
 	      email: 'john_smith@gmail.com'
 	  });
-	  console.log('hi');
+	 	console.log(signUpUser.get('password'));
 	  signUpUser.save().then(function (user) {
-	  	console.log("user saved with dbtest");
+	  	console.log(user.get('username'));
+	  }).catch(function(e) {
+	  	console.log(e);
 	  });
 		return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
@@ -50,8 +52,18 @@ module.exports = function(app, passport) {
 
 
 	app.post('/login', function (req, res) {	
-		UserController.loginPostPassport(req, res);
+		console.log(passport);
+		console.log('login post hit');
+		var factObj;
+		passport.authenticate('local-login', {failureFlash: true}, function (err, user, info) {
+      console.log("Passport authenticate callback called");
+      factObj = {err: err, user: user};
+    });
+
+    return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
+
+
 
 
 };

@@ -22,7 +22,7 @@ var UserFactory = {
     passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}, function (err, user, info) {
       console.log("Factory signup done");
       factObj = {err: err, user: user};
-    })
+    });
     console.log("factObj:" + factObj);
     return factObj;
 
@@ -34,7 +34,7 @@ var UserFactory = {
       console.log("Factory login done");
 
       factObj = {err: err, user: user};
-    })
+    });
     console.log("factObj:" + factObj);
     return factObj;
   }
