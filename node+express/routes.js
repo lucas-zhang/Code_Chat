@@ -20,13 +20,13 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/signup', function (req, res) {
-		console.log(passport);
 		console.log('signup post hit');
 		var factObj;
+
 		passport.authenticate('local-signup', {failureFlash: true}, function (err, user, info) {
       console.log("Factory signup done");
       factObj = {err: err, user: user};
-    })
+    })(req, res);
 
     return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
@@ -51,14 +51,13 @@ module.exports = function(app, passport) {
 
 
 
-	app.post('/login', function (req, res) {	
-		console.log(passport);
+	app.post('/login', function (req, res) {
 		console.log('login post hit');
 		var factObj;
-		passport.authenticate('local-login', {failureFlash: true}, function (err, user, info) {
+		passport.authenticate('local-login', {}, function (err, user, info) {
       console.log("Passport authenticate callback called");
       factObj = {err: err, user: user};
-    });
+    })(req, res);
 
     return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});

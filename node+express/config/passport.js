@@ -38,11 +38,11 @@ module.exports = function(passport) {
             } else {
                 var hash = bcrypt.hashSync(password);
                 var signUpUser = new Model.User({
-                    username: user.username, 
+                    username: user.get('username'), 
                     password: hash, 
-                    firstName: user.firstName, 
-                    lastName: user.lastName, 
-                    email: user.email
+                    firstName: user.get('firstName'), 
+                    lastName: user.get('lastName'), 
+                    email: user.get('email')
                 });
                 signUpUser.save().then(function () {
                     return done(null, signUpUser);
@@ -55,7 +55,7 @@ module.exports = function(passport) {
     passport.use('local-login', new LocalStrategy({
     },
     function (username, password, done) {
-        console.log('local-login');
+        console.log('local-login called');
         new Model.User({username:username}).fetch().then(function (data) {
             console.log(data);
             var user = data;
@@ -67,6 +67,7 @@ module.exports = function(passport) {
             }
             return done(null,user);
         });
+
     }));
 
   
