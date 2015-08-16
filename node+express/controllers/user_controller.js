@@ -25,7 +25,7 @@ var UserController = (function() {
 
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]
-    var factObject = UserFactory.signupPostPassport();
+    var factObject = UserFactory.signupPostPassport(req, res);
     var err = factObject.err;
     var user = factObject.user;
     if (err || !user) {
@@ -36,7 +36,7 @@ var UserController = (function() {
 
   }; 
   var loginPostPassportPrivate = function(req, res) { 
-    var factObject = UserFactory.loginPostPassport();
+    var factObject = UserFactory.loginPostPassport(req, res);
     var err = factObject.err;
     var user = factObject.user;
     if (err || !user) {

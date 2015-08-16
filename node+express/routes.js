@@ -23,7 +23,7 @@ module.exports = function(app, passport) {
 		console.log('signup post hit');
 		var factObj;
 
-		passport.authenticate('local-signup', {failureFlash: true}, function (err, user, info) {
+		passport.authenticate('local-signup', {}, function (err, user, info) {
       console.log("Factory signup done");
       factObj = {err: err, user: user};
     })(req, res);
@@ -49,14 +49,19 @@ module.exports = function(app, passport) {
 	});
 
 
+	var setFactObj = function(factObj) {
+		console.log(factObj.user + ' ' + factObj.err);
+	};			
 
-
-	app.post('/login', function (req, res) {
+	app.post('/login', function (req, res, setFactObj) {
 		console.log('login post hit');
-		var factObj;
-		passport.authenticate('local-login', {}, function (err, user, info) {
+		
+		passport.authenticate('local-login', {}, function (err, user, info, setFactObj) {
       console.log("Passport authenticate callback called");
-      factObj = {err: err, user: user};
+      var factObj = {err: err, user: user};
+      console.log(factObj);
+      setFactObj(factObj);
+      
     })(req, res);
 
     return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});

@@ -27,48 +27,56 @@ module.exports = function(passport) {
 
 
     //signup strategy
-    passport.use('local-signup', new LocalStrategy({
-    },
-    function (username, password, done) {
-        console.log("local-signup called");
-        new Model.User({username: username}).fetch().then(function (user) { //not sure if err is a thing
+    passport.use('local-signup', new LocalStrategy(
+        {passReqToCallback: true},
+        function (req, username, password, done) {
+            console.log("local-signup called");
+            new Model.User({username: username}).fetch().then(function (user) { //not sure if err is a thing
+                console.log(user);
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                } else {
+                    console.log('else entered');
+                    var userFields = req.body;
+                    var hash = bcrypt.hashSync(password);
 
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
-            } else {
-                var hash = bcrypt.hashSync(password);
-                var signUpUser = new Model.User({
-                    username: user.get('username'), 
-                    password: hash, 
-                    firstName: user.get('firstName'), 
-                    lastName: user.get('lastName'), 
-                    email: user.get('email')
-                });
-                signUpUser.save().then(function () {
-                    return done(null, signUpUser);
+                    var signUpUser = new Model.User({
+                        username: username, 
+                        password: hash, 
+                        firstName: userFields.firstName, 
+                        lastName: userFields.lastName, 
+                        email: userFields.email
+                    });
+                    signUpUser.save().then(function () {
+                        return done(null, signUpUser);
 
-                });
-            }
-        });
-    }));
+                    });
+                }
+            }).catch(function(err) {
+                return done(err);
+            });
+        }
+    ));
 
     passport.use('local-login', new LocalStrategy({
     },
-    function (username, password, done) {
-        console.log('local-login called');
-        new Model.User({username:username}).fetch().then(function (data) {
-            console.log(data);
-            var user = data;
-            if (!user) {
-                return done(null, false, {message: 'Invalid username or password.'});
-            }
-            if (!bcrypt.compareSync(password, user.get('password'))) {
-                return done(null, false, {message: 'Invalid username or password.'});
-            }
-            return done(null,user);
-        });
+        function (username, password, done) {
+            console.log("local-login called");
+            new Model.User({username:username}).fetch().then(function (data) {
+                var user = data;
+                if (!user) {
+                    return done(null, false, {message: 'Invalid username or password.'});
+                }
+                if (!bcrypt.compareSync(password, user.get('password'))) {
+                    return done(null, false, {message: 'Invalid username or password.'});
+                }
+                return done(null,user);
+            }).catch(function(err) {
+                return done(err);
+            });;
 
-    }));
+        }
+    ));
 
   
 };
