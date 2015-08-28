@@ -32,10 +32,11 @@ app.set('view engine', 'ejs');
 
 //Passport setup
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+require('./config/passport')(passport); // pass passport for configuration
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-require('./config/passport')(passport); // pass passport for configuration
+
 
 // routes ======================================================================
 require('./routes.js')(app, passport); 

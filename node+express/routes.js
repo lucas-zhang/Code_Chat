@@ -9,51 +9,25 @@ module.exports = function(app, passport) {
 	app.get('/', function (req, res) {
 		if (req.isAuthenticated()) {
 
-			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.passport.user, err: null});
+			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.passport.user});
 		}
 		console.log("GET to /, not authenticated");
-	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null, err: null});
+	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null});
 	});
 
 	app.get('/signup', function (req, res) {
 		UserController.signupGet(req, res);
 	});
-
 	app.post('/signup', function (req, res) {
 		console.log('signup post hit');
-		var factObj;
-
-		passport.authenticate('local-signup', {}, function (err, user, info) {
-      console.log("Factory signup done");
-      factObj = {err: err, user: user};
-    })(req, res);
-
-    return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
-	});
-
-	app.get('/dbtest', function (req, res) {
-	 	var signUpUser = new Model.User({
-	      username: 'jagger156',
-	      password: 'asdf', 
-	      firstName: 'john', 
-	      lastName: 'smith', 
-	      email: 'john_smith@gmail.com'
-	  });
-	 	console.log(signUpUser.get('password'));
-	  signUpUser.save().then(function (user) {
-	  	console.log(user.get('username'));
-	  }).catch(function(e) {
-	  	console.log(e);
-	  });
-		return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
+		UserController.signupPostPassport(req, res);
 	});
 
 
-	var setFactObj = function(factObj) {
-		console.log(factObj.user + ' ' + factObj.err);
-	};			
-
-	app.post('/login', function (req, res, setFactObj) {
+	
+	app.post('/login', function (req, res) {
+		
+		UserController.loginPostPassport(req, res);
 		console.log('login post hit');
 		
 		passport.authenticate('local-login', {}, function (err, user, info, setFactObj) {
@@ -66,6 +40,23 @@ module.exports = function(app, passport) {
 
     return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
 	});
+
+
+	app.get('/dbtest', function (req, res) {
+	 	var signUpUser = new Model.User({
+	      username: 'jagger156',
+	      password: 'asdf', 
+	      firstName: 'john', 
+	      lastName: 'smith', 
+	      email: 'john_smith@gmail.com'
+	  });
+	  
+	  signUpUser.save().then(function (user) {
+	  }).catch(function(e) {
+	  });
+		return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
+	});
+
 
 
 

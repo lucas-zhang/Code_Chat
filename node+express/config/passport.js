@@ -15,13 +15,19 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
-        done(null, user.userID);
+        console.log('serialize called');
+        console.log(user)
+        done(null, user.userId);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function (userID, done) {
-        new Model.User({userID: userID}).fetch().then(function(err, user) {
+    passport.deserializeUser(function (userId, done) {
+        console.log('deserialize called');
+        new Model.User({userId: userId}).fetch().then(function(err, user) {
+            console.log('deserialize then entered');
             done(err, user);
+        }).catch(function(e) {
+            console.log(e);
         });
     });
 
@@ -32,11 +38,9 @@ module.exports = function(passport) {
         function (req, username, password, done) {
             console.log("local-signup called");
             new Model.User({username: username}).fetch().then(function (user) { //not sure if err is a thing
-                console.log(user);
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, {message: 'That username is already taken.'});
                 } else {
-                    console.log('else entered');
                     var userFields = req.body;
                     var hash = bcrypt.hashSync(password);
 

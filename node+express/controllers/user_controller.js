@@ -11,32 +11,44 @@ var UserController = (function() {
   
   var signupGetPrivate = function(req,res) {
     if (req.isAuthenticated()) {
-      return renderViewPrivate(req, res, '/home/index.ejs', {err: null, user: req.passport.user});
+      return renderViewPrivate(req, res, '/home/index.ejs', {errorMessage: null, user: req.passport.user});
     } 
-    return renderViewPrivate(req, res, '/signup/signup.ejs', {err: null, user: null});
-  };
-  var signupPostPrivate = function(req, res) {
-    var factObj = UserFactory.signupPost(req,res);
-    var user = factObj.user;
-    var err = factObj.err;
-    return renderViewPrivate(req, res, '/signup/signup.ejs', {err: err, user: user});
-
+    return renderViewPrivate(req, res, '/signup/signup.ejs', {errorMessage: null, user: null});
   };
 
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]
-    var factObject = UserFactory.signupPostPassport(req, res);
-    var err = factObject.err;
-    var user = factObject.user;
-    if (err || !user) {
-      return renderViewPrivate(req, res, '/signup/signup.ejs', {user: null, signupError: err.signupMessage});
-    }
-    return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, signupError: null});
+    var signupCallBack = function (err, user, info) {
+      var templPath = '/signup/signup.ejs'
+      if (err) {
+        return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
+      }
+
+      if (!user) {
+        return renderViewPrivate(req, res, templPath, {user: user, errorMessage: info.message});
+      }
+      return req.logIn(user, function(err) {
+        if (err) {
+          return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
+        } else {
+          return res.redirect('/');
+        }
+      })
+    };
+
+    return passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}, signupCallBack)(req, res);
+
     
 
   }; 
   var loginPostPassportPrivate = function(req, res) { 
-    var factObject = UserFactory.loginPostPassport(req, res);
+    var loginCallBack = function (err, user, info) {
+      console.log("Factory login done");
+      factObj = {err: err, user: user};
+      
+    };
+
+    UserFactory.loginPostPassport(req, res, loginCallBack);
     var err = factObject.err;
     var user = factObject.user;
     if (err || !user) {
@@ -57,9 +69,7 @@ var UserController = (function() {
       loginPostPassport: function(req, res) {
         loginPostPassportPrivate(req , res);
       },
-      signupPost: function(req, res) {
-        signupPostPrivate(req, res);
-      },
+
       signupPostPassport: function(req,res) {
         signupPostPassportPrivate(req, res);
       },

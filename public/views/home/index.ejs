@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = "chatApp">
+<html>
 <head>
     <title>CodeChat Main</title>
     <meta charset="utf-8">
@@ -18,22 +18,28 @@
 </head>
 
     
-    <body ng-controller = "UserCtrl as userCtrl"> 
-        <navbar-logged-in ng-if = "userCtrl.user.loggedIn"></navbar-logged-in>
-        <navbar-logged-out ng-if = "!userCtrl.user.loggedIn"></navbar-logged-out>
-        <br><br><br><br>
-        <welcome-message ng-if = "userCtrl.user.loggedIn"></welcome-message>
-        <login-box ng-if = "!userCtrl.user.loggedIn"></login-box>
-        
+    <body> 
+        <% if(user == null) { %>
+            <% include ../templates/navbar_loggedOut %>
+            <br><br><br><br>
+            <% include ../templates/login_box %>
+            
 
-        <app-description></app-description>
+        <% } else { %>
+            <% include ../templates/navbar_loggedIn %>
+            <br><br><br><br>
+            <% include ../templates/welcome_message %>
+            
+        <% } %>
+        
+        <% include ../templates/app_description %>
 
         <div class = "container" style = "padding-bottom: 50px">
-            <main-features></main-features>
-            <other-features></other-features>
+            <% include ../templates/main_features %>
+            <% include ../templates/other_features %>
         </div>
 
-        <bottom-footer></bottom-footer>
+        <% include ../templates/footer %>
     </body>
 </html>
 

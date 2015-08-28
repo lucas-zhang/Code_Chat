@@ -17,26 +17,14 @@ var UserFactory = {
     var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return regex.test(email);
   },
-  signupPostPassport: function(req, res) {
-    var factObj;
-    passport.authenticate('local-signup', {failureRedirect: '/', failureFlash: true}, function (err, user, info) {
-      console.log("Factory signup done");
-      factObj = {err: err, user: user};
-    })(req, res);
-    console.log("factObj:" + factObj);
-    return factObj;
+  signupPostPassport: function(req, res, signupCallBack) {
+    return;
 
   },
 
-  loginPostPassport: function(req, res) {
-    var factObj;
-    passport.authenticate('local-login', {failureRedirect: '/', failureFlash: true}, function (err,user,info) {
-      console.log("Factory login done");
+  loginPostPassport: function(req, res, loginCallBack) {
+    return passport.authenticate('local-login', {failureRedirect: '/', failureFlash: true}, loginCallBack)(req, res);
 
-      factObj = {err: err, user: user};
-    })(req, res);
-    console.log("factObj:" + factObj);
-    return factObj;
   }
   
 };

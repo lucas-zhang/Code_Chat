@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = "chatApp">
+<html>
 <head>
     <title>CodeChat Signup</title>
     <meta charset="utf-8">
@@ -16,11 +16,20 @@
 
 </head>
     <body> 
-        <navbar-logged-out></navbar-logged-out>
+        <% if(user == null) { %>
+            <% include ../templates/navbar_loggedOut %>
+
+        <% } else { %>
+            <% include ../templates/navbar_loggedIn %>
+        <% } %>
+        
         <br><br><br><br>
-        <signup-box></signup-box>
+        <% if(errorMessage != null) { %>
+            <span><%= errorMessage %></span>
+         <% } %>
+        <% include ../templates/sign_up_box %>
 		<div style = "padding-bottom: 50px">
         </div>
-        <bottom-footer></bottom-footer>
+        <% include ../templates/footer %>
     </body>
 </html>

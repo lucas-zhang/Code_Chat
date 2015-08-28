@@ -1,5 +1,4 @@
-When you pull this repo for the first time you have to create folders:
-
-1) angular/modules and download and place angular-route.js and angular.min.js
-2) public/js and download and place jquery-1.9.1.js and ejs_production.js
-3) bootstrap directory in the public directory; it is a sibling of  public/css, public/img, public/js, and public/views.
+- Chat app with responsive UI for mobile devices
+- Server is built in Node.js with Express.js for routing. User authentication is built using Passport.js. Data layer is built using Bookshelf.js. Used MySQL for the database.
+- Used Bootstrap and EJS templating to build the responsive front end for mobile clients
+- Features include adding friends, individual and group chats, and formatted code snippets
