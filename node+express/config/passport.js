@@ -15,16 +15,12 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
-        console.log('serialize called');
-        console.log(user)
-        done(null, user.userId);
+        done(null, user.get('userId'));
     });
 
     // used to deserialize the user
     passport.deserializeUser(function (userId, done) {
-        console.log('deserialize called');
         new Model.User({userId: userId}).fetch().then(function(err, user) {
-            console.log('deserialize then entered');
             done(err, user);
         }).catch(function(e) {
             console.log(e);
@@ -67,6 +63,7 @@ module.exports = function(passport) {
         function (username, password, done) {
             console.log("local-login called");
             new Model.User({username:username}).fetch().then(function (data) {
+                console.log(user);
                 var user = data;
                 if (!user) {
                     return done(null, false, {message: 'Invalid username or password.'});
@@ -77,7 +74,7 @@ module.exports = function(passport) {
                 return done(null,user);
             }).catch(function(err) {
                 return done(err);
-            });;
+            });
 
         }
     ));

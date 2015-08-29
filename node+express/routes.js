@@ -7,13 +7,20 @@ module.exports = function(app, passport) {
 	var rootPath = path.join(__dirname + '../..');
 
 	app.get('/', function (req, res) {
+		console.log('index get called');
 		if (req.isAuthenticated()) {
-
-			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.passport.user});
+			console.log("GET to /, authenticated");
+			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.user, errorMessage:null});
 		}
 		console.log("GET to /, not authenticated");
-	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null});
+	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null, errorMessage: null});
 	});
+
+	app.post('/', function (req, res) { // login
+		console.log('login post hit');
+		UserController.loginPostPassport(req, res);
+	});
+
 
 	app.get('/signup', function (req, res) {
 		UserController.signupGet(req, res);
@@ -25,21 +32,6 @@ module.exports = function(app, passport) {
 
 
 	
-	app.post('/login', function (req, res) {
-		
-		UserController.loginPostPassport(req, res);
-		console.log('login post hit');
-		
-		passport.authenticate('local-login', {}, function (err, user, info, setFactObj) {
-      console.log("Passport authenticate callback called");
-      var factObj = {err: err, user: user};
-      console.log(factObj);
-      setFactObj(factObj);
-      
-    })(req, res);
-
-    return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {});
-	});
 
 
 	app.get('/dbtest', function (req, res) {

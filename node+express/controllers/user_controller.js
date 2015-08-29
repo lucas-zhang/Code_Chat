@@ -11,7 +11,7 @@ var UserController = (function() {
   
   var signupGetPrivate = function(req,res) {
     if (req.isAuthenticated()) {
-      return renderViewPrivate(req, res, '/home/index.ejs', {errorMessage: null, user: req.passport.user});
+      return renderViewPrivate(req, res, '/home/index.ejs', {errorMessage: null, user: req.user});
     } 
     return renderViewPrivate(req, res, '/signup/signup.ejs', {errorMessage: null, user: null});
   };
@@ -28,10 +28,12 @@ var UserController = (function() {
         return renderViewPrivate(req, res, templPath, {user: user, errorMessage: info.message});
       }
       return req.logIn(user, function(err) {
+        console.log(user);
         if (err) {
           return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
         } else {
-          return res.redirect('/');
+          console.log('else entered');
+          res.redirect('/');
         }
       })
     };
@@ -43,18 +45,31 @@ var UserController = (function() {
   }; 
   var loginPostPassportPrivate = function(req, res) { 
     var loginCallBack = function (err, user, info) {
-      console.log("Factory login done");
-      factObj = {err: err, user: user};
+      console.log('login callback called');
+      var templPath = '/home/index.ejs';
+      console.log(err);
+      console.log(user);
+      console.log(info);
+      if (err) {
+        return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
+      }
+
+      if (!user) {
+        console.log('if not user entered');
+        return renderViewPrivate(req, res, templPath, {user: user, errorMessage: info.message});
+      }
+      return req.logIn(user, function(err) {
+        console.log(user);
+        if (err) {
+          return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
+        } else {
+          console.log('else entered');
+          res.redirect('/');
+        }
+      })
       
     };
-
-    UserFactory.loginPostPassport(req, res, loginCallBack);
-    var err = factObject.err;
-    var user = factObject.user;
-    if (err || !user) {
-      return renderViewPrivate(req, res, '/home/index.ejs', {user: null, loginError: err.loginMessage});
-    }
-    return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, loginError: null});
+    return passport.authenticate('local-login', {failureRedirect: '/', failureFlash: true}, loginCallBack)(req, res);
     
 
 

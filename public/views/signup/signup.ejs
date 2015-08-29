@@ -16,7 +16,7 @@
 
 </head>
     <body> 
-        <% if(user == null) { %>
+        <% if(!user) { %>
             <% include ../templates/navbar_loggedOut %>
 
         <% } else { %>
@@ -24,7 +24,7 @@
         <% } %>
         
         <br><br><br><br>
-        <% if(errorMessage != null) { %>
+        <% if(!errorMessage) { %>
             <span><%= errorMessage %></span>
          <% } %>
         <% include ../templates/sign_up_box %>

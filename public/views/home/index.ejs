@@ -19,14 +19,18 @@
 
     
     <body> 
-        <% if(user == null) { %>
+        <% if(!user) { %>
             <% include ../templates/navbar_loggedOut %>
             <br><br><br><br>
+            <% if(!errorMessage) { %>
+                <span><%= errorMessage %></span>
+            <% } %>
             <% include ../templates/login_box %>
             
 
         <% } else { %>
             <% include ../templates/navbar_loggedIn %>
+
             <br><br><br><br>
             <% include ../templates/welcome_message %>
             
