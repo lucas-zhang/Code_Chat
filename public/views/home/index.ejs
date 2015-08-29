@@ -22,8 +22,8 @@
         <% if(!user) { %>
             <% include ../templates/navbar_loggedOut %>
             <br><br><br><br>
-            <% if(!errorMessage) { %>
-                <span><%= errorMessage %></span>
+            <% if(errorMessage) { %>
+                <span><%= errorMessage%></span>
             <% } %>
             <% include ../templates/login_box %>
             

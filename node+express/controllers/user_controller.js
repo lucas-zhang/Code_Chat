@@ -11,7 +11,8 @@ var UserController = (function() {
   
   var signupGetPrivate = function(req,res) {
     if (req.isAuthenticated()) {
-      return renderViewPrivate(req, res, '/home/index.ejs', {errorMessage: null, user: req.user});
+      console.log('get to signup authenticated');
+      return res.redirect('/');
     } 
     return renderViewPrivate(req, res, '/signup/signup.ejs', {errorMessage: null, user: null});
   };
@@ -23,17 +24,15 @@ var UserController = (function() {
       if (err) {
         return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
       }
-
       if (!user) {
         return renderViewPrivate(req, res, templPath, {user: user, errorMessage: info.message});
       }
-      return req.logIn(user, function(err) {
-        console.log(user);
+      req.logIn(user, function(err) {
         if (err) {
           return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
         } else {
-          console.log('else entered');
-          res.redirect('/');
+
+          return res.redirect('/');
         }
       })
     };
@@ -47,23 +46,20 @@ var UserController = (function() {
     var loginCallBack = function (err, user, info) {
       console.log('login callback called');
       var templPath = '/home/index.ejs';
-      console.log(err);
-      console.log(user);
-      console.log(info);
+
       if (err) {
         return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
       }
 
       if (!user) {
-        console.log('if not user entered');
         return renderViewPrivate(req, res, templPath, {user: user, errorMessage: info.message});
       }
       return req.logIn(user, function(err) {
-        console.log(user);
-        if (err) {
+
+        if(err) {
           return renderViewPrivate(req, res, templPath, {user: user, errorMessage: err.message});
         } else {
-          console.log('else entered');
+          console.log(user.get('firstName'));
           res.redirect('/');
         }
       })
