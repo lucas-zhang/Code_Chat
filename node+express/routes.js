@@ -9,6 +9,7 @@ module.exports = function(app, passport) {
 	app.get('/', function (req, res) {
 		console.log('index get called');
 		if (req.isAuthenticated()) {
+			console.log()
 			console.log("GET to /, authenticated");
 			return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: req.user, errorMessage:null});
 		}
@@ -20,6 +21,18 @@ module.exports = function(app, passport) {
 		console.log('login post hit');
 		UserController.loginPostPassport(req, res);
 	});
+	app.get('/getUser', function (req, res) {
+		userId = req.body.userId;
+		if (userId != req.user.get('userId')) {
+			req.logout();
+			return res.redirect('/');
+		}
+		if (req.isAuthenticated()) {
+			return req.user;
+		} else {
+			return null;
+		}
+	});
 
 
 	app.get('/signup', function (req, res) {
@@ -28,6 +41,11 @@ module.exports = function(app, passport) {
 	app.post('/signup', function (req, res) {
 		console.log('signup post hit');
 		UserController.signupPostPassport(req, res);
+	});
+
+	app.get('/logout', function (req, res) {
+		req.logout();
+		res.redirect('/');
 	});
 
 
