@@ -1,0 +1,11 @@
+Passport: difference between req.body and req.passport.user?
+
+Do we need to call req.login()?
+
+How i can use MVC with passport? So currently in MVC, post request hits -> UserController method -> UserFactory method -> passport.authenticate with callback passed from controller.
+
+How to use more attributes besides just username and password in signup?
+
+How do we have an error callback using passport.authenticate?
+
+How to use attributes and field within bookshelf models?
