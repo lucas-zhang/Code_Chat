@@ -6,9 +6,13 @@ var bcrypt   = require('bcrypt-nodejs');
 var UserModel = bookshelf.Model.extend({
     tableName: 'users',
     idAttribute: 'userId',
-    validPassword: function() {
-      console.log(this.get('password'));
-    }
+
 });
 
+var FriendshipModel = bookshelf.Model.extend({
+  tableName: 'friends',
+
+})
+
 module.exports.User = UserModel;
+module.exports.Friendship = FriendshipModel;

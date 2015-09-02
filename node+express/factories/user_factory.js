@@ -19,6 +19,13 @@ var UserFactory = {
   },
   getUser: function(userId) {
     return new Model.User({userId: userId}).fetch();
+  },
+
+  getFriends: function(userId){
+    new Model.Friendship.query({where: {userId1: '1'}, orwhere: {userId2: '1'}}).fetch().then(function(data){
+      console.log(data);
+    });
+    return;
   }
 
   

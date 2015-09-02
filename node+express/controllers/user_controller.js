@@ -21,7 +21,12 @@ var UserController = (function() {
     if (!req.isAuthenticated() ) {
       return res.redirect('/');
     }
-    var userPromise = UserFactory.getUser(37);
+    // Still in testing
+    new Model.Friendship.query({where: {userId1: '1'}, orwhere: {userId2: '1'}}).fetch().then(function(data){
+      console.log(data);
+    });
+    var userPromise = UserFactory.getUser(req.user.get('userId'));
+    var friendPromises = UserFactory.getFriends(req.user.get('userId'));
     userPromise.then(function(user){
       var isUser = false;
       if (req.user.get('userId') == user.get('userId')) {
@@ -30,6 +35,7 @@ var UserController = (function() {
       return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, isUser: isUser});
     });
   }
+
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]
     var signupCallBack = function (err, user, info) {

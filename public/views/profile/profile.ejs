@@ -26,6 +26,12 @@
     <% } else { %>
         <button type="button" id = "add-friend" class="btn btn-primary">Add Friend</button>
     <% } %>
+
+    <%if (friends) { %>
+        <%for (var i = 0; i < friends.length; i++) {%>
+            <div style = "background-color: yellow, border: 2px solid black"><%friend.get('firstName') + ' ' + friend.get('lastName')%> <br> <%friend.get('username')%>
+        <%}%>
+    <%}%>
     
 </body>
 </html>
