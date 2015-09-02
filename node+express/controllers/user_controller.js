@@ -16,7 +16,20 @@ var UserController = (function() {
     } 
     return renderViewPrivate(req, res, '/signup/signup.ejs', {errorMessage: null, user: null});
   };
-
+  var profileGetPrivate = function(req,res) {
+    //add some check to make sure the current cookie matches the passport session
+    if (!req.isAuthenticated() ) {
+      return res.redirect('/');
+    }
+    var userPromise = UserFactory.getUser(37);
+    userPromise.then(function(user){
+      var isUser = false;
+      if (req.user.get('userId') == user.get('userId')) {
+        isUser = true;
+      }
+      return renderViewPrivate(req, res, '/profile/profile.ejs', {user: user, isUser: isUser});
+    });
+  }
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]
     var signupCallBack = function (err, user, info) {
@@ -86,6 +99,9 @@ var UserController = (function() {
       },
       signupGet: function(req, res) {
         signupGetPrivate(req,res);
+      },
+      profileGet: function(req, res) {
+        profileGetPrivate(req, res);
       },
       renderView: function(req, res, templatePath, ejsDict) {
         renderViewPrivate(req, res, templatePath, ejsDict);

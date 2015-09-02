@@ -17,15 +17,10 @@ var UserFactory = {
     var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return regex.test(email);
   },
-  signupPostPassport: function(req, res, signupCallBack) {
-    return;
-
-  },
-
-  loginPostPassport: function(req, res, loginCallBack) {
-    return passport.authenticate('local-login', {failureRedirect: '/', failureFlash: true}, loginCallBack)(req, res);
-
+  getUser: function(userId) {
+    return new Model.User({userId: userId}).fetch();
   }
+
   
 };
 module.exports = UserFactory;
