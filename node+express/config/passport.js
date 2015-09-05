@@ -20,7 +20,6 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function (userId, done) {
-        console.log('deserialize called');
         new Model.User({userId: userId}).fetch().then(function(user) {
             done(null, user);
         }).catch(function(e) {

@@ -20,7 +20,12 @@
 
     
 <body> 
-    This is <%= user.get('firstName') %>'s profile
+    <%if (profileUser) {%>
+        This is <%= profileUser.get('firstName') %>'s profile
+    <%} else {%>
+        profileUser is null
+    <%}%>
+
     <% if(isUser) { %>
         This is your own profile so there's no add friend button.
     <% } else { %>
@@ -28,9 +33,13 @@
     <% } %>
 
     <%if (friends) { %>
+        <br><br><br><br><br>Friends:
         <%for (var i = 0; i < friends.length; i++) {%>
-            <div style = "background-color: yellow, border: 2px solid black"><%friend.get('firstName') + ' ' + friend.get('lastName')%> <br> <%friend.get('username')%>
+            <%var friend = friends[i];%>
+            <div style = "background-color: yellow; border: 2px solid black; margin-top: 20px; margin-bottom: 50px; font-size: 24px"><%='User ID: ' + friend.get('userId')%><br><%='Name: ' + friend.get('firstName') + ' ' + friend.get('lastName')%> <br> <%='Username: ' + friend.get('username')%></div>
         <%}%>
+    <%} else {%>
+        <div> Friends is null</div>
     <%}%>
     
 </body>

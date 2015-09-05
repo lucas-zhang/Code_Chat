@@ -18,23 +18,25 @@ var UserController = (function() {
   };
   var profileGetPrivate = function(req,res) {
     //add some check to make sure the current cookie matches the passport session
-    /*if (!req.isAuthenticated() ) {
+    var profileId = req.params.id;
+    if (!req.isAuthenticated() ) {
       return res.redirect('/');
     }
-    */
+    
     // Still in testing 
     /*
     new Model.Subset({id: 42}).fetch({withRelated: ['id']}).then(function(data){
       console.log(data);
     });
-*/
-    new Model.Friendship().query({where: {userId1: '42'}, orWhere: {userId2: '42'}}).fetchAll().then(function(data){
+*/  
+
+    new Model.Friendship().query({where: {userId1: profileId}, orWhere: {userId2: profileId}}).fetchAll().then(function(data){
       var models = data.models;
       var friendIds = [];
       for (var i = 0; i < models.length; i ++){
         var userId1 = models[i].get('userId1');
         var userId2 = models[i].get('userId2');
-        if (userId1 == '42') {
+        if (userId1 == profileId) {
           friendIds.push(userId2);
         } else {
           friendIds.push(userId1);
@@ -43,27 +45,32 @@ var UserController = (function() {
       }
 
       var friends = [];
-      friendIds.forEach(function(friendId, index, a){
-        new Model.User({userId: a[i]}).fetch().then(function(data){
-          friends.push(data);
-        });
-      });
+      function getFriendsAndRenderView(i) {
+        if (i < friendIds.length){
+          new Model.User({userId: friendIds[i]}).fetch().then(function(data){
+            friends.push(data);
+            getFriendsAndRenderView(i + 1);
+          });
 
-      console.log(friends);
-      
+        } else {
+            var userPromise = UserFactory.getUser(profileId);
+            userPromise.then(function(profileUser){
+              var isUser = false;
+              if (req.user.get('userId') == profileUser.get('userId')) {
+                isUser = true;
+              }
+              console.log(friends);
+              return renderViewPrivate(req, res, '/profile/profile.ejs', {friends: friends, profileUser: profileUser, isUser: isUser});
+            });
+        }
+      }
+
+      getFriendsAndRenderView(0);
       
     });
 
     
-    var userPromise = UserFactory.getUser(req.user.get('userId'));
 
-    userPromise.then(function(user){
-      var isUser = false;
-      if (req.user.get('userId') == user.get('userId')) {
-        isUser = true;
-      }
-      return renderViewPrivate(req, res, '/profile/profile.ejs', {friends: friends, user: user, isUser: isUser});
-    });
   
 
 }

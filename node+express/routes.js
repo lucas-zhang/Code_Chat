@@ -17,12 +17,14 @@ module.exports = function(app, passport) {
 	  return res.render(path.join(rootPath, '/public/views/home/index.ejs'), {user: null, errorMessage: null});
 	});
 
+
+
 	app.post('/', function (req, res) { // login
 		console.log('login post hit');
 		UserController.loginPostPassport(req, res);
 	});
 
-	app.get('/user/profile', function (req,res) {
+	app.get('/user/profile/:id', function (req,res) {
 		UserController.profileGet(req, res);
 	});
 
