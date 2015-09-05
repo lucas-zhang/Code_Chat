@@ -21,21 +21,11 @@ module.exports = function(app, passport) {
 		console.log('login post hit');
 		UserController.loginPostPassport(req, res);
 	});
+
 	app.get('/user/profile', function (req,res) {
 		UserController.profileGet(req, res);
 	});
-	app.get('/getUser', function (req, res) {
-		userId = req.body.userId;
-		if (userId != req.user.get('userId')) {
-			req.logout();
-			return res.redirect('/');
-		}
-		if (req.isAuthenticated()) {
-			return req.user;
-		} else {
-			return null;
-		}
-	});
+
 
 
 	app.get('/signup', function (req, res) {

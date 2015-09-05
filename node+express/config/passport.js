@@ -64,6 +64,7 @@ module.exports = function(passport) {
         function (username, password, done) {
             console.log("local-login called");
             new Model.User({username:username}).fetch().then(function (data) {
+                console.log(data);
                 var user = data;
                 if (!user) {
                     return done(null, false, {message: 'Invalid username or password.'});
