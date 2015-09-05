@@ -29,7 +29,8 @@
     <% if(isUser) { %>
         This is your own profile so there's no add friend button.
     <% } else { %>
-        <button type="button" id = "add-friend" class="btn btn-primary">Add Friend</button>
+        <button type="button" id = "add-friend" class="btn btn-primary" data-id = "<%=profileUser.get('userId')%>">Add Friend</button>
+        <div style = "display: none; color: red; font-size: 24px"> You added this person to your friends list</div>
     <% } %>
 
     <%if (friends) { %>

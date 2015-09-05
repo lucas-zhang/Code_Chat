@@ -69,11 +69,18 @@ var UserController = (function() {
       
     });
 
-    
-
   
 
-}
+  };
+  var addFriendPrivate = function(req, res){
+    //do some checking to make sure that inputted friendId is tampered with
+    var friendId = req.friendId;
+    console.log(friendId);
+    new Model.Friendship({userId1: req.user.get('userId'), userId2: friendId}).save().then(function(){
+
+    });
+
+  }
 
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]

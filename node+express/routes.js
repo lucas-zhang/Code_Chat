@@ -28,6 +28,10 @@ module.exports = function(app, passport) {
 		UserController.profileGet(req, res);
 	});
 
+	app.post('/add_friend', function (req, res) {
+		UserController.addFriend(req, res);
+	});
+
 
 
 	app.get('/signup', function (req, res) {
