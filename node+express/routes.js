@@ -24,6 +24,12 @@ module.exports = function(app, passport) {
 		UserController.loginPostPassport(req, res);
 	});
 
+	app.get('/search', function (req, res) {
+		UserController.searchGet(req, res);
+	});
+	app.post('/search', function (req, res) {
+		UserController.searchPost(req, res);
+	})
 	app.get('/user/profile/:id', function (req,res) {
 		UserController.profileGet(req, res);
 	});

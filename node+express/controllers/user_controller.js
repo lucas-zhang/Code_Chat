@@ -91,6 +91,31 @@ var UserController = (function() {
 
   }
 
+  var searchGetPrivate = function(req, res) {
+    if (req.isAuthenticated()) {
+      return renderViewPrivate(req, res, '/search/search.ejs', {});
+    } else {
+      res.redirect('/');
+    }
+    
+  }
+  var searchPostPrivate = function(req, res){
+    var inputFirstName = req.body.firstName;
+    var inputLastName = req.body.lastName;
+    var matchingUsers = [];
+    new Model.User().fetchAll().then(function(data){
+      var users = data.models;
+      for (var i = 0; i < users.length; i ++) {
+        var fNameMatch = users[i].get('firstName').search(new RegExp(inputFirstName, "i")) != -1;
+        var lNameMatch = users[i].get('lastName').search(new RegExp(inputLastName, "i")) != -1;
+        if (fNameMatch || lNameMatch) {
+          matchingUsers.push(users[i]);
+        }
+      }
+      return res.send(JSON.stringify({matchingUsers: matchingUsers}));
+    });
+  }
+
   var signupPostPassportPrivate = function(req, res) {
     // factObject.keys()  = [err, user]
     var signupCallBack = function (err, user, info) {
@@ -166,6 +191,12 @@ var UserController = (function() {
       },
       addFriend: function(req, res) {
         addFriendPrivate(req, res);
+      },
+      searchGet: function(req, res) {
+        searchGetPrivate(req, res);
+      },
+      searchPost: function(req, res) {
+        searchPostPrivate(req, res);
       },
       renderView: function(req, res, templatePath, ejsDict) {
         renderViewPrivate(req, res, templatePath, ejsDict);
