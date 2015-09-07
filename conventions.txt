@@ -1,0 +1,2 @@
+Variables: Camelcase
+file names: underscore

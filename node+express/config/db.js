@@ -4,8 +4,8 @@ var knex = require('knex')({
   connection: {
       host: 'localhost',  // your host
       user: 'root', // your database user
-      password: 'lzdbpass', // your database password
-      database: 'chat_app',
+      password: 'password', // your database password
+      database: 'chat',
       charset: 'utf8'
   }
 });
