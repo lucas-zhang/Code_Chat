@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CodeChat Main</title>
+    <title>Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel = "stylesheet" type = "text/css" href = "bootstrap/css/bootstrap.min.css"/>
-    <link rel = "stylesheet" type = "text/css" href = "css/main_page.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "../../../bootstrap/css/bootstrap.min.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "../../../css/main_page.css"/>
 
-    <script src = "js/jquery-1.9.1.js"/></script>
-    <script src = "js/addFriend.js"/></script>
+    <script src = "../../../js/jquery-1.9.1.js"/></script>
+    <script src = "../../../js/addFriend.js"/></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <script src = "bootstrap/js/bootstrap.min.js"/></script>
-    <script src = "angular/app.js"></script>
-    <script src = "angular/directives/html_directives.js"></script>
-    <script src = "angular/controllers/controllers.js"></script>
+    <script src = "../../../bootstrap/js/bootstrap.min.js"/></script>
 
 
 </head>
@@ -21,27 +18,25 @@
     
 <body> 
     <%if (profileUser) {%>
-        This is <%= profileUser.get('firstName') %>'s profile
-    <%} else {%>
-        profileUser is null
+        This is <%= profileUser.get('firstName') + ' ' + profileUser.get('lastName') %>'s profile
     <%}%>
 
-    <% if(isUser) { %>
-        This is your own profile so there's no add friend button.
-    <% } else { %>
-        <button type="button" id = "add-friend" class="btn btn-primary" data-id = "<%=profileUser.get('userId')%>">Add Friend</button>
-        <div style = "display: none; color: red; font-size: 24px"> You added this person to your friends list</div>
-    <% } %>
+    <%if (isUser){%>
+        <button type="button" id = "add-friend" class="btn btn-primary" data-id = "<%=profileUser.get('userId')%>">Add Friend
+        </button>
+        <div id = "add-friend-message"></div>
+    <%}%>
 
     <%if (friends) { %>
         <br><br><br><br><br>Friends:
         <%for (var i = 0; i < friends.length; i++) {%>
             <%var friend = friends[i];%>
-            <div style = "background-color: yellow; border: 2px solid black; margin-top: 20px; margin-bottom: 50px; font-size: 24px"><%='User ID: ' + friend.get('userId')%><br><%='Name: ' + friend.get('firstName') + ' ' + friend.get('lastName')%> <br> <%='Username: ' + friend.get('username')%></div>
+            <div style = "background-color: yellow; border: 2px solid black; margin-top: 20px; margin-bottom: 50px; font-size: 24px"><%='User ID: ' + friend.get('userId')%><br><%='Name: ' + friend.get('firstName') + ' ' + friend.get('lastName')%> <br> <%='Username: ' + friend.get('username')%>
+
+            </div>
         <%}%>
-    <%} else {%>
-        <div> Friends is null</div>
     <%}%>
+
     
 </body>
 </html>

@@ -56,6 +56,9 @@ var UserController = (function() {
             var userPromise = UserFactory.getUser(profileId);
             userPromise.then(function(profileUser){
               var isUser = false;
+              console.log("username: " + req.params.username);
+              console.log(profileUser.get('username'));
+
               if (req.user.get('userId') == profileUser.get('userId')) {
                 isUser = true;
               }
@@ -74,10 +77,16 @@ var UserController = (function() {
   };
   var addFriendPrivate = function(req, res){
     //do some checking to make sure that inputted friendId is tampered with
-    var friendId = req.friendId;
-    console.log(friendId);
-    new Model.Friendship({userId1: req.user.get('userId'), userId2: friendId}).save().then(function(){
-
+    var friendId = req.body.friendId;
+    if (req.user.get('userId') == friendId){
+      return res.send("You can't add yourself as a friend!");
+    }
+    new Model.Friendship({userId1: req.user.get('userId'), userId2: friendId}).save().then(function(data){
+      console.log("entered then");
+      return res.send("You've successfully added this person as a friend!");
+    }).catch(function(e){
+      console.log("entered catch");
+      return res.send("There was an error trying to add this person to your friends list.");
     });
 
   }
@@ -154,6 +163,9 @@ var UserController = (function() {
       },
       profileGet: function(req, res) {
         profileGetPrivate(req, res);
+      },
+      addFriend: function(req, res) {
+        addFriendPrivate(req, res);
       },
       renderView: function(req, res, templatePath, ejsDict) {
         renderViewPrivate(req, res, templatePath, ejsDict);

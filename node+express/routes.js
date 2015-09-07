@@ -29,6 +29,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/add_friend', function (req, res) {
+		console.log('add_friend hit');
 		UserController.addFriend(req, res);
 	});
 
